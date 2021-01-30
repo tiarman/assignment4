@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<!--Header, Menu and Body Section-->
+
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main id="booking-section">
+        <section class="main-content container">
+            <div class="booking-form">
+                <h3>Booking Flights</h3>
+                <div class="input-group">
+                    <label for="">Flying From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                </div>
+                <div class="input-group">
+                    <label for="">Flying To</label>
+                    <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                </div>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label for="">Departure</label>
+                        <input class="inp-style" type="date" name="">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Return</label>
+                        <input class="inp-style" type="date" name="">
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class ($150) : <span id="firstClass-total">$0</span> </label>
+                        <input id="firstClass-flight" class="inp-style inp-width" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button onclick="handlebookingChange('firstClass', false)" class="btn btn-default"><i
+                                class="fas fa-minus">-</i></button>
+                        <button onclick="handlebookingChange('firstClass', true)" class="btn btn-default"><i
+                                class="fas fa-plus">+</i></button>
+                    </div>
+                </div>
+
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100): <span id="Economy-total">$0</span></label>
+                        <input id="Economy-flight" class="inp-style inp-width" value="0" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <button onclick="handlebookingChange('Economy', false)" class="btn btn-default"><i
+                                class="fas fa-minus">-</i></button>
+                        <button onclick="handlebookingChange('Economy', true)" class="btn btn-default"><i
+                                class="fas fa-plus">+</i></button>
+                    </div>
+                </div>
+                <div class="calculations">
+                    <div class="amount">
+                        <div class="left">
+                            <p>Subtotal :</p>
+                        </div>
+                        <div class="right">
+                            <p id="total-price">$0</p>
+                        </div>
+                    </div>
+
+                    <div class="amount">
+                        <div class="left">
+                            <p>Charge 10% VAT</p>
+                        </div>
+                        <div class="right">
+                            <p id="tex-amount">$0</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="amount">
+                        <div class="left">
+                            <h4>Total :</h4>
+                        </div>
+                        <div class="right">
+                            <p id="grand-total">$0</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="booking" class="btn-style">Book Now</button>
+            </div>
+
+            <div class="booking-content">
+                <h1>discover <br> around the world</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                    veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt
+                    nobise voluptatibus quam</p>
+            </div>
+        </section>
+    </main>
+    <section id="transaction-area">
+        <div id="messege-box">
+            <div class="text-center w-50 shadow-lg p-4 mb-2 bg-white rounded">
+                <h4>Awesome!</h4>
+                <p>Your booking has been confirmed. Check your email for detials.</p>
+                <button class="btn btn-success">OK</button>
+            </div>
+        </div>
+    </section>
+    <!-- javascript Part -->
+    <script>
+        function handlebookingChange(booking, isIncrease) {
+            const bookingInput = document.getElementById(booking + '-flight');
+            const bookingflight = getInputValue(booking);
+            let bookingNewflight = bookingflight;
+            if (isIncrease == true) {
+                bookingNewflight = bookingflight + 1;
+            }
+            if (isIncrease == false && bookingflight > 0) {
+                bookingNewflight = bookingflight - 1;
+            }
+            bookingInput.value = bookingNewflight;
+            let bookingTotal = 0;
+            if (booking == 'firstClass') {
+                bookingTotal = bookingNewflight * 150;
+            }
+            if (booking == 'Economy') {
+                bookingTotal = bookingNewflight * 100;
+            }
+            document.getElementById(booking + '-total').innerText = 'Ticket Amount:  $' + bookingTotal;
+            calculateTotal()
+        }
+
+        function calculateTotal() {
+            const firstClassflight = getInputValue('firstClass');
+            const Economyflight = getInputValue('Economy');
+            const totalPrice = firstClassflight * 150 + Economyflight * 100;
+            document.getElementById(id = 'total-price').innerText = '$' + totalPrice;
+            const tax = Math.round(totalPrice * 0.1);
+            document.getElementById('tex-amount').innerText = '$' + tax;
+            const grandTotal = totalPrice + tax;
+            document.getElementById('grand-total').innerText = '$' + grandTotal;
+        }
+        function getInputValue(booking) {
+            const bookingInput = document.getElementById(booking + '-flight');
+            const bookingflight = parseInt(bookingInput.value);
+            return bookingflight;
+        }
+        const bookingBtn = document.getElementById('booking');
+        bookingBtn.addEventListener("click", function () {
+            const bookingArea = document.getElementById("booking-section");
+            bookingArea.style.display = "none"
+            const transactionArea = document.getElementById("transaction-area");
+            transactionArea.style.display = "block";
+        })
+    </script>
+
+    <!--Thank You-->
+</body>
+
+</html>
